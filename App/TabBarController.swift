@@ -4,6 +4,12 @@ import UIKit
 class TabBarController: UITabBarController {
     private var navigators = [Navigator]()
 
+    override var title: String? {
+        didSet{
+            tabBarItem.title = "you want"
+        }
+    }
+
     var sceneDelegate: SceneDelegate?
     
     init(sceneDelegate: SceneDelegate) {
