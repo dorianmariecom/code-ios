@@ -3,6 +3,13 @@
   "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
+    <key>ITSAppUsesNonExemptEncryption</key>
+    <false />
+    <key>NSUserNotificationUsageDescription</key>
+    <string>
+      We need to send you notifications to keep you updated with important
+      information.
+    </string>
     <key>UIApplicationSceneManifest</key>
     <dict>
       <key>UIApplicationSupportsMultipleScenes</key>
@@ -22,18 +29,5 @@
         </array>
       </dict>
     </dict>
-    <key>UIBackgroundModes</key>
-    <array>
-      <string>remote-notification</string>
-    </array>
-    <key>NSUserNotificationUsageDescription</key>
-    <string>
-      We need to send you notifications to keep you updated with important
-      information.
-    </string>
-    <key>NSAppleMusicUsageDescription</key>
-    <string>We need access to play notification sounds.</string>
-    <key>ITSAppUsesNonExemptEncryption</key>
-    <false />
   </dict>
 </plist>
