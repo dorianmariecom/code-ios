@@ -1,9 +1,21 @@
 import Foundation
 
 struct AppConfig {
-    static let environment: String = ProcessInfo.processInfo.environment["CODE_ENV"] ?? "production"
+    static let environment: String = {
+        #if CODE_ENV_LOCALHOST
+                return "localhost"
+        #elseif CODE_ENV_DEVELOPMENT
+                return "development"
+        #elseif CODE_ENV_STAGING
+                return "staging"
+        #elseif CODE_ENV_PRODUCTION
+                return "production"
+        #else
+                return "production"
+        #endif
+    }()
     
-     static let baseDomain: String = {
+    static let baseDomain: String = {
         switch environment {
         case "localhost": return "http://localhost:3000"
         case "development": return "https://dev.codedorian.com"
@@ -11,15 +23,6 @@ struct AppConfig {
         default: return "https://codedorian.com"
         }
     }()
-    
-    static let isLocal: Bool = {
-       switch environment {
-       case "localhost": return true
-       case "development": return true
-       case "staging": return false
-       default: return false
-       }
-   }()
     
     static let baseURL: URL = URL(string: baseDomain)!
     static let configurationsURL: URL = URL(string: "\(baseDomain)/configurations/ios_v1.json")!

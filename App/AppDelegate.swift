@@ -7,8 +7,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private let viewModel = NotificationTokenViewModel()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        Hotwire.config.debugLoggingEnabled = AppConfig.isLocal
-
         Hotwire.loadPathConfiguration(from: [
             .server(AppConfig.configurationsURL)
         ])

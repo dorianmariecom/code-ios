@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0895885F2D7452BE00A23321"
-               BuildableName = "staging.app"
+               BuildableName = "codedorian - staging.app"
                BlueprintName = "code"
                ReferencedContainer = "container:code.xcodeproj">
             </BuildableReference>
@@ -45,18 +45,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0895885F2D7452BE00A23321"
-            BuildableName = "staging.app"
+            BuildableName = "codedorian - staging.app"
             BlueprintName = "code"
             ReferencedContainer = "container:code.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "CODE_ENV"
-            value = "staging"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "staging"
@@ -69,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0895885F2D7452BE00A23321"
-            BuildableName = "staging.app"
+            BuildableName = "codedorian - staging.app"
             BlueprintName = "code"
             ReferencedContainer = "container:code.xcodeproj">
          </BuildableReference>
