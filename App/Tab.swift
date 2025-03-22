@@ -3,6 +3,8 @@ class Tab: Equatable {
     let image: String
     let path: String
 
+    var isStarted = false
+
     static var all = [
         Tab(title: "loading...", image: "circle.fill", path: ""),
     ]

@@ -48,11 +48,14 @@ extension TabBarController: UITabBarControllerDelegate {
     ) {
         guard let index = viewControllers?.firstIndex(of: viewController)
         else { return }
-
+    
         let tab = Tab.all[index]
         let url = URL(string: "\(AppConfig.baseDomain)\(tab.path)")!
 
-        navigators[index].route(url)
+        if !tab.isStarted {
+            navigators[index].route(url)
+            tab.isStarted = true
+        }
     }
 }
 
