@@ -14,9 +14,15 @@ class NotificationRouter: NSObject, UNUserNotificationCenterDelegate {
         didReceive response: UNNotificationResponse
     ) async {
         let userInfo = response.notification.request.content.userInfo
-        if let path = userInfo["path"] as? String {
-            let url = AppConfig.baseURL.appending(path: path)
-            router?.route(url)
-        }
+        let path = userInfo["path"] as? String ?? ""
+        router?.route(AppConfig.baseURL.appending(path: path))
+    }
+    
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        completionHandler([.banner, .sound, .badge])
     }
 }

@@ -10,6 +10,8 @@
       We need to send you notifications to keep you updated with important
       information.
     </string>
+    <key>CFBundleIconFile</key>
+    <string>${CODE_ICON_FILE}</string>
     <key>UIApplicationSceneManifest</key>
     <dict>
       <key>UIApplicationSupportsMultipleScenes</key>

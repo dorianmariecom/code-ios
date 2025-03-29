@@ -9,6 +9,6 @@ class NotificationTokenViewModel {
         request.setValue(AppConfig.csrfToken, forHTTPHeaderField: "X-CSRF-Token")
         request.httpBody = "device[token]=\(token)&device[platform]=ios".data(using: .utf8)
 
-        do { _ = try await URLSession.shared.data(for: request)) } catch {}
+        do { _ = try await URLSession.shared.data(for: request) } catch {}
     }
 }

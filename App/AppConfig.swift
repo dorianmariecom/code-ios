@@ -2,14 +2,14 @@ import Foundation
 
 struct AppConfig {
     static let environment: String = {
-        #if CODE_ENV_LOCALHOST
+        #if CODE_ENV_TEST
+                return "test"
+        #elseif CODE_ENV_LOCALHOST
                 return "localhost"
         #elseif CODE_ENV_DEVELOPMENT
                 return "development"
         #elseif CODE_ENV_STAGING
                 return "staging"
-        #elseif CODE_ENV_PRODUCTION
-                return "production"
         #else
                 return "production"
         #endif
@@ -17,6 +17,7 @@ struct AppConfig {
     
     static let baseDomain: String = {
         switch environment {
+        case "test": return "http://localhost:3000"
         case "localhost": return "http://localhost:3000"
         case "development": return "https://dev.codedorian.com"
         case "staging": return "https://staging.codedorian.com"

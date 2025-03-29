@@ -6,7 +6,9 @@ class NotificationTokenComponent: BridgeComponent {
     override class var name: String { "notification-token" }
 
     override func onReceive(message: Message) {
-        Task { await requestNotificationPermission() }
+        if message.event == "connect" {
+            Task { await requestNotificationPermission() }
+        }
     }
 
     private func requestNotificationPermission() async {
