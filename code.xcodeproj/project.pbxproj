@@ -11,7 +11,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		089588602D7452BE00A23321 /* codedorian - local.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "codedorian - local.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		089588602D7452BE00A23321 /* localhost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = localhost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -58,7 +58,7 @@
 		089588612D7452BE00A23321 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				089588602D7452BE00A23321 /* codedorian - local.app */,
+				089588602D7452BE00A23321 /* localhost.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -86,7 +86,7 @@
 				086F046F2D97235500929F3F /* HotwireNative */,
 			);
 			productName = code;
-			productReference = 089588602D7452BE00A23321 /* codedorian - local.app */;
+			productReference = 089588602D7452BE00A23321 /* localhost.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -243,7 +243,7 @@
 				OTHER_SWIFT_FLAGS = "";
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-DCODE_ENV_TEST";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codedorian.test;
-				PRODUCT_NAME = "codedorian - test";
+				PRODUCT_NAME = test;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -281,7 +281,7 @@
 				OTHER_SWIFT_FLAGS = "";
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-DCODE_ENV_LOCALHOST";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codedorian.localhost;
-				PRODUCT_NAME = "codedorian - local";
+				PRODUCT_NAME = localhost;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -317,7 +317,7 @@
 				MARKETING_VERSION = 1.2;
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-DCODE_ENV_STAGING";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codedorian.staging;
-				PRODUCT_NAME = "codedorian - staging";
+				PRODUCT_NAME = staging;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -546,7 +546,7 @@
 				MARKETING_VERSION = 1.2;
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-DCODE_ENV_DEVELOPMENT";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codedorian.development;
-				PRODUCT_NAME = "codedorian - dev";
+				PRODUCT_NAME = development;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -663,7 +663,7 @@
 				08BF80D62D83993300614317 /* production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = staging;
+			defaultConfigurationName = production;
 		};
 		089588732D7452BF00A23321 /* Build configuration list for PBXNativeTarget "code" */ = {
 			isa = XCConfigurationList;
@@ -675,7 +675,7 @@
 				08BF80D72D83993300614317 /* production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = staging;
+			defaultConfigurationName = production;
 		};
 /* End XCConfigurationList section */
 

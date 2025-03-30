@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0895885F2D7452BE00A23321"
-               BuildableName = "codedorian - staging.app"
+               BuildableName = "codedorian.app"
                BlueprintName = "code"
                ReferencedContainer = "container:code.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0895885F2D7452BE00A23321"
-            BuildableName = "codedorian - staging.app"
+            BuildableName = "codedorian.app"
             BlueprintName = "code"
             ReferencedContainer = "container:code.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0895885F2D7452BE00A23321"
-            BuildableName = "codedorian - staging.app"
+            BuildableName = "codedorian.app"
             BlueprintName = "code"
             ReferencedContainer = "container:code.xcodeproj">
          </BuildableReference>
