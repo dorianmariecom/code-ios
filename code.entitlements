@@ -4,7 +4,7 @@
 <plist version="1.0">
   <dict>
     <key>aps-environment</key>
-    <string>development</string>
+    <string>production</string>
     <key>com.apple.developer.usernotifications.time-sensitive</key>
     <true />
   </dict>
