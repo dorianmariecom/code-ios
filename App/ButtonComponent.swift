@@ -16,13 +16,18 @@ class ButtonComponent: BridgeComponent {
         guard let data: MessageData = message.data() else { return }
 
         let viewController = delegate.destination as? UIViewController
-        let action = UIAction(title: data.title) { _ in
+        let action = UIAction() { _ in
             self.reply(to: message.event)
         }
+        
         let button = UIBarButtonItem(primaryAction: action)
-        if let image = data.image {
-            button.image = UIImage(systemName: image)
+
+        if data.image.isEmpty {
+            button.title = data.title
+        } else {
+            button.image = UIImage(systemName: data.image)
         }
+
         viewController?.navigationItem.rightBarButtonItem = button
     }
 
@@ -35,6 +40,6 @@ class ButtonComponent: BridgeComponent {
 private extension ButtonComponent {
     struct MessageData: Decodable {
         let title: String
-        let image: String?
+        let image: String
     }
 }
