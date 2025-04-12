@@ -1,5 +1,3 @@
-import Foundation
-
 class Tab: Equatable {
     let title: String
     let image: String
@@ -9,12 +7,12 @@ class Tab: Equatable {
     static var all = [
         Tab(title: "loading...", image: "circle.fill", path: ""),
     ]
- 
+
     init(title: String, image: String, path: String) {
         self.title = title
         self.image = image
         self.path = path
-        self.url = URL(string: "\(AppConfig.baseDomain)/\(path)")!
+        self.url = AppConfig.baseURL.appending(path: tab.path)
     }
 
     static func == (lhs: Tab, rhs: Tab) -> Bool {
