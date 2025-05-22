@@ -15,7 +15,7 @@ class ButtonComponent: BridgeComponent {
     private func connect(via message: Message) {
         guard let data: MessageData = message.data() else { return }
 
-        let viewController = delegate.destination as? UIViewController
+        let viewController = delegate?.destination as? UIViewController
         let action = UIAction() { _ in
             self.reply(to: message.event)
         }
@@ -32,7 +32,7 @@ class ButtonComponent: BridgeComponent {
     }
 
     private func disconnect() {
-        let viewController = delegate.destination as? UIViewController
+        let viewController = delegate?.destination as? UIViewController
         viewController?.navigationItem.rightBarButtonItem = nil
     }
 }

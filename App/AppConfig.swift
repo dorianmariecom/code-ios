@@ -30,4 +30,5 @@ struct AppConfig {
     static let configurationsURL: URL = URL(string: "\(baseDomain)/configurations/ios_v1.json")!
     static let devicesURL: URL = URL(string: "\(baseDomain)/devices")!
     static var csrfToken: String?
+    static var sceneDelegate: SceneDelegate?
 }

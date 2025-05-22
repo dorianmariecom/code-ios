@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		086F04702D97235500929F3F /* HotwireNative in Frameworks */ = {isa = PBXBuildFile; productRef = 086F046F2D97235500929F3F /* HotwireNative */; };
+		0845DF7F2DDF9F3600A6F57C /* HotwireNative in Frameworks */ = {isa = PBXBuildFile; productRef = 0845DF7E2DDF9F3600A6F57C /* HotwireNative */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,6 +18,11 @@
 		083F1A222D7C5D5800B6BEBE /* Exceptions for "App" folder in "code" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				ConfigDevelopment.xcconfig,
+				ConfigLocalhost.xcconfig,
+				ConfigProduction.xcconfig,
+				ConfigStaging.xcconfig,
+				ConfigTest.xcconfig,
 				Info.plist,
 			);
 			target = 0895885F2D7452BE00A23321 /* code */;
@@ -40,7 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				086F04702D97235500929F3F /* HotwireNative in Frameworks */,
+				0845DF7F2DDF9F3600A6F57C /* HotwireNative in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +88,7 @@
 			);
 			name = code;
 			packageProductDependencies = (
-				086F046F2D97235500929F3F /* HotwireNative */,
+				0845DF7E2DDF9F3600A6F57C /* HotwireNative */,
 			);
 			productName = code;
 			productReference = 089588602D7452BE00A23321 /* localhost.app */;
@@ -97,7 +102,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					0895885F2D7452BE00A23321 = {
 						CreatedOnToolsVersion = 16.2;
@@ -114,7 +119,7 @@
 			mainGroup = 089588572D7452BE00A23321;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				086F046E2D97235500929F3F /* XCRemoteSwiftPackageReference "hotwire-native-ios" */,
+				0845DF7D2DDF9F3600A6F57C /* XCRemoteSwiftPackageReference "hotwire-native-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 089588612D7452BE00A23321 /* Products */;
@@ -184,6 +189,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = JBK5Q3RCTT;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -226,7 +232,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = JBK5Q3RCTT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "We need access to play notification sounds.";
@@ -264,7 +269,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = JBK5Q3RCTT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "We need access to play notification sounds.";
@@ -301,7 +305,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = JBK5Q3RCTT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "We need access to play notification sounds.";
@@ -362,6 +365,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = JBK5Q3RCTT;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -428,6 +432,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = JBK5Q3RCTT;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -488,6 +493,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = JBK5Q3RCTT;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -530,7 +536,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = JBK5Q3RCTT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "We need access to play notification sounds.";
@@ -591,6 +596,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = JBK5Q3RCTT;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -626,7 +632,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = JBK5Q3RCTT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "We need access to play notification sounds.";
@@ -680,20 +685,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		086F046E2D97235500929F3F /* XCRemoteSwiftPackageReference "hotwire-native-ios" */ = {
+		0845DF7D2DDF9F3600A6F57C /* XCRemoteSwiftPackageReference "hotwire-native-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hotwired/hotwire-native-ios";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		086F046F2D97235500929F3F /* HotwireNative */ = {
+		0845DF7E2DDF9F3600A6F57C /* HotwireNative */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 086F046E2D97235500929F3F /* XCRemoteSwiftPackageReference "hotwire-native-ios" */;
+			package = 0845DF7D2DDF9F3600A6F57C /* XCRemoteSwiftPackageReference "hotwire-native-ios" */;
 			productName = HotwireNative;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -6,22 +6,25 @@ class TabBarComponent: BridgeComponent {
 
     override func onReceive(message: Message) {
         if message.event == "connect" {
-
             guard let data: MessageData = message.data() else { return }
 
-            let newTabs = data.tabs.map { Tab(title: $0.title, image: $0.image, path: $0.path) }
+            let newTabs = data.tabs.map { tab in
+                HotwireTab(
+                    title: tab.title,
+                    image: UIImage(systemName: tab.image)!,
+                    url: AppConfig.baseURL.appending(path: tab.path)
+                )
+            }
+            print("newTabs \(newTabs)")
+            print("HotwireTab.all \(HotwireTab.all)")
 
-
-            if (newTabs.isEmpty || newTabs == Tab.all) {
+            if (newTabs.isEmpty || newTabs == HotwireTab.all) {
                 return
             }
 
-            Tab.all = newTabs
+            HotwireTab.all = newTabs
 
-            let viewController = delegate.destination as? UIViewController
-            let tabBarController = viewController?.tabBarController as? TabBarController
-            let sceneDelegate = tabBarController?.sceneDelegate as? SceneDelegate
-            sceneDelegate?.viewDidLoad()
+            AppConfig.sceneDelegate?.viewDidLoad()
         }
     }
 

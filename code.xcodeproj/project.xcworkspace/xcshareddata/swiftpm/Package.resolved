@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/hotwired/hotwire-native-ios",
       "state" : {
-        "branch" : "main",
-        "revision" : "09e850b5707777ff5dc625429e11934421476522"
+        "revision" : "f18b87938f55cbe8976e96702b5512fa9afcd674",
+        "version" : "1.2.0"
       }
     }
   ],
