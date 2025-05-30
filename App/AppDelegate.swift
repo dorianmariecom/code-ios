@@ -9,6 +9,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        Hotwire.config.debugLoggingEnabled = true
+        
         Hotwire.loadPathConfiguration(from: [
             .server(AppConfig.configurationsURL)
         ])
@@ -17,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NotificationTokenComponent.self,
             TabBarComponent.self,
             CsrfTokenComponent.self,
+            ConfirmComponent.self,
         ])
         return true
     }

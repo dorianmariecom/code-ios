@@ -15,8 +15,6 @@ class TabBarComponent: BridgeComponent {
                     url: AppConfig.baseURL.appending(path: tab.path)
                 )
             }
-            print("newTabs \(newTabs)")
-            print("HotwireTab.all \(HotwireTab.all)")
 
             if (newTabs.isEmpty || newTabs == HotwireTab.all) {
                 return
