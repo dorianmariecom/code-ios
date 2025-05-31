@@ -9,7 +9,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        let bundleIdentifier = Bundle.main.bundleIdentifier ?? "unknown"
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0"
+        
         Hotwire.config.debugLoggingEnabled = true
+        Hotwire.config.applicationUserAgentPrefix = "\(bundleIdentifier)/\(appVersion)"
         
         Hotwire.loadPathConfiguration(from: [
             .server(AppConfig.configurationsURL)
@@ -20,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             TabBarComponent.self,
             CsrfTokenComponent.self,
             ConfirmComponent.self,
+            MenuComponent.self,
         ])
         return true
     }

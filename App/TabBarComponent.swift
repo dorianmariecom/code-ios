@@ -25,14 +25,14 @@ class TabBarComponent: BridgeComponent {
             AppConfig.sceneDelegate?.viewDidLoad()
         }
     }
+    
+    struct MessageData: Decodable {
+        let tabs: [MessageTab]
+    }
 
     struct MessageTab: Decodable {
         let title: String
         let image: String
         let path: String
-    }
-
-    struct MessageData: Decodable {
-        let tabs: [MessageTab]
     }
 }
