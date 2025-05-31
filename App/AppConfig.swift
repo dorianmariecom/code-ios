@@ -1,18 +1,19 @@
 import Foundation
+import UIKit
 
 struct AppConfig {
     static let environment: String = {
-        #if CODE_ENV_TEST
-                return "test"
-        #elseif CODE_ENV_LOCALHOST
-                return "localhost"
-        #elseif CODE_ENV_DEVELOPMENT
-                return "development"
-        #elseif CODE_ENV_STAGING
-                return "staging"
-        #else
-                return "production"
-        #endif
+#if CODE_ENV_TEST
+        return "test"
+#elseif CODE_ENV_LOCALHOST
+        return "localhost"
+#elseif CODE_ENV_DEVELOPMENT
+        return "development"
+#elseif CODE_ENV_STAGING
+        return "staging"
+#else
+        return "production"
+#endif
     }()
     
     static let baseDomain: String = {
@@ -31,4 +32,10 @@ struct AppConfig {
     static let devicesURL: URL = URL(string: "\(baseDomain)/devices")!
     static var csrfToken: String?
     static var sceneDelegate: SceneDelegate?
+    static var menuItem: UIBarButtonItem?
+    static var shareItem: UIBarButtonItem?
+    static var buttonItem: UIBarButtonItem?
+    static var items: [UIBarButtonItem] {
+        [menuItem, shareItem, buttonItem].compactMap { $0 }
+    }
 }

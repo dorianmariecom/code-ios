@@ -3,7 +3,7 @@ import UIKit
 
 final class MenuComponent: BridgeComponent {
     override class var name: String { "menu" }
-    
+
     private var viewController: UIViewController? {
         delegate?.destination as? UIViewController
     }
@@ -21,13 +21,17 @@ final class MenuComponent: BridgeComponent {
                 actions.append(action)
             }
 
-            let button = UIBarButtonItem(
+            AppConfig.menuItem = UIBarButtonItem(
                 title: "Menu",
                 image: UIImage(systemName: "ellipsis"),
                 menu: UIMenu(children: actions)
             )
 
-            viewController?.navigationItem.rightBarButtonItem = button
+            viewController?.navigationItem.rightBarButtonItems = AppConfig.items
+        } else if (message.event == "disconnect") {
+            AppConfig.menuItem = nil
+
+            viewController?.navigationItem.rightBarButtonItems = AppConfig.items
         }
     }
 

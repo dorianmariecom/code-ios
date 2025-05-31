@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             CsrfTokenComponent.self,
             ConfirmComponent.self,
             MenuComponent.self,
+            ShareComponent.self,
         ])
         return true
     }
