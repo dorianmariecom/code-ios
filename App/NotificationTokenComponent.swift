@@ -17,7 +17,9 @@ class NotificationTokenComponent: BridgeComponent {
             let options: UNAuthorizationOptions = [.alert, .sound, .badge]
             _ = try await center.requestAuthorization(options: options)
 
-            UIApplication.shared.registerForRemoteNotifications()
+            await MainActor.run {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
         } catch {}
     }
 }

@@ -21,6 +21,7 @@ final class MenuComponent: BridgeComponent {
                 actions.append(action)
             }
 
+            AppConfig.buttonItem = nil
             AppConfig.menuItem = UIBarButtonItem(
                 title: "Menu",
                 image: UIImage(systemName: "ellipsis"),

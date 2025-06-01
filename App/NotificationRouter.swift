@@ -19,4 +19,10 @@ class NotificationRouter: NSObject, UNUserNotificationCenterDelegate {
             navigationHandler.route(url)
         }
     }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .sound, .badge])
+    }
 }

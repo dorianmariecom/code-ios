@@ -27,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             MenuComponent.self,
             ShareComponent.self,
         ])
+        
         return true
     }
     func application(
@@ -35,5 +36,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) {
         let token = deviceToken.map { String(format: "%02x", $0) }.joined()
         Task { await viewModel.register(token) }
-    }    
+    }
 }

@@ -19,7 +19,8 @@ final class ShareComponent: BridgeComponent {
                 )
                 self?.viewController?.present(activityViewController, animated: false)
             }
-
+            
+            AppConfig.buttonItem = nil
             AppConfig.shareItem = UIBarButtonItem(
                 title: "Share",
                 image: UIImage(systemName: "square.and.arrow.up"),
