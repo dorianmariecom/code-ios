@@ -35,7 +35,8 @@ struct AppConfig {
     static var menuItem: UIBarButtonItem?
     static var shareItem: UIBarButtonItem?
     static var buttonItem: UIBarButtonItem?
+    static var refreshItem: UIBarButtonItem?
     static var items: [UIBarButtonItem] {
-        [menuItem, shareItem, buttonItem].compactMap { $0 }
+        [menuItem, shareItem, refreshItem, buttonItem].compactMap { $0 }
     }
 }

@@ -15,6 +15,7 @@ class ButtonComponent: BridgeComponent {
             
             AppConfig.menuItem = nil
             AppConfig.shareItem = nil
+            AppConfig.refreshItem = nil
             AppConfig.buttonItem = UIBarButtonItem(title: data.title, primaryAction: action)
             
             viewController?.navigationItem.rightBarButtonItems = AppConfig.items

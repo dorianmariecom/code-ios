@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ConfirmComponent.self,
             MenuComponent.self,
             ShareComponent.self,
+            RefreshComponent.self,
         ])
         
         return true
