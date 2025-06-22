@@ -1,11 +1,3 @@
-//
-//  AlertComponent.swift
-//  code
-//
-//  Created by Dorian Marié on 29/05/2025.
-//
-
-
 import HotwireNative
 import UIKit
 

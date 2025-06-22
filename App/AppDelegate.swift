@@ -27,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             MenuComponent.self,
             ShareComponent.self,
             RefreshComponent.self,
+            FlashComponent.self,
         ])
         
         return true
