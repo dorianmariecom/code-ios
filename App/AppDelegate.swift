@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             RefreshComponent.self,
             FlashComponent.self,
             ActionsComponent.self,
+            SearchComponent.self
         ])
         
         return true
