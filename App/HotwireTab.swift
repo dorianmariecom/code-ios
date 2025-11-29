@@ -10,9 +10,3 @@ extension HotwireTab {
         )
     ]
 }
-
-extension HotwireTab: Equatable {
-    public static func == (lhs: HotwireTab, rhs: HotwireTab) -> Bool {
-        return lhs.title == rhs.title && lhs.url == rhs.url
-    }
-}
