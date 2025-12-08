@@ -32,11 +32,4 @@ struct AppConfig {
     static let devicesURL: URL = URL(string: "\(baseDomain)/devices")!
     static var csrfToken: String?
     static var sceneDelegate: SceneDelegate?
-    static var menuItem: UIBarButtonItem?
-    static var shareItem: UIBarButtonItem?
-    static var buttonItem: UIBarButtonItem?
-    static var refreshItem: UIBarButtonItem?
-    static var items: [UIBarButtonItem] {
-        [menuItem, shareItem, refreshItem, buttonItem].compactMap { $0 }
-    }
 }

@@ -14,18 +14,24 @@ final class RefreshComponent: BridgeComponent {
                 self.reply(to: message.event)
             }
 
-            AppConfig.buttonItem = nil
-            AppConfig.refreshItem = UIBarButtonItem(
+            guard let viewController else { return }
+            let navigationItems = viewController.navigationItems
+
+            navigationItems.buttonItem = nil
+            navigationItems.refreshItem = UIBarButtonItem(
                 title: "Refresh",
                 image: UIImage(systemName: "arrow.clockwise"),
                 primaryAction: action
             )
 
-            viewController?.navigationItem.rightBarButtonItems = AppConfig.items
+            viewController.navigationItem.rightBarButtonItems = navigationItems.items
         } else if (message.event == "disconnect") {
-            AppConfig.refreshItem = nil
+            guard let viewController else { return }
 
-            viewController?.navigationItem.rightBarButtonItems = AppConfig.items
+            let navigationItems = viewController.navigationItems
+            navigationItems.refreshItem = nil
+
+            viewController.navigationItem.rightBarButtonItems = navigationItems.items
         }
     }
 }

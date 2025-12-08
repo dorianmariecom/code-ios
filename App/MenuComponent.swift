@@ -10,7 +10,10 @@ final class MenuComponent: BridgeComponent {
 
     override func onReceive(message: Message) {
         if message.event == "connect" {
-            guard let data: MessageData = message.data() else { return }
+            guard
+                let data: MessageData = message.data(),
+                let viewController
+            else { return }
 
             var actions = [UIAction]()
             for (index, item) in data.menu.enumerated() {
@@ -21,18 +24,22 @@ final class MenuComponent: BridgeComponent {
                 actions.append(action)
             }
 
-            AppConfig.buttonItem = nil
-            AppConfig.menuItem = UIBarButtonItem(
+            let navigationItems = viewController.navigationItems
+            navigationItems.buttonItem = nil
+            navigationItems.menuItem = UIBarButtonItem(
                 title: "Menu",
                 image: UIImage(systemName: "ellipsis"),
                 menu: UIMenu(children: actions)
             )
 
-            viewController?.navigationItem.rightBarButtonItems = AppConfig.items
+            viewController.navigationItem.rightBarButtonItems = navigationItems.items
         } else if (message.event == "disconnect") {
-            AppConfig.menuItem = nil
+            guard let viewController else { return }
 
-            viewController?.navigationItem.rightBarButtonItems = AppConfig.items
+            let navigationItems = viewController.navigationItems
+            navigationItems.menuItem = nil
+
+            viewController.navigationItem.rightBarButtonItems = navigationItems.items
         }
     }
 

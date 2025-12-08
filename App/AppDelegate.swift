@@ -12,7 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let bundleIdentifier = Bundle.main.bundleIdentifier ?? "unknown"
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0"
         
-        Hotwire.config.debugLoggingEnabled = true
+        Hotwire.config.debugLoggingEnabled = false
         Hotwire.config.applicationUserAgentPrefix = "\(bundleIdentifier)/\(appVersion)"
         
         Hotwire.loadPathConfiguration(from: [

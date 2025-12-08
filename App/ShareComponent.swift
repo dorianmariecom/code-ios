@@ -10,7 +10,11 @@ final class ShareComponent: BridgeComponent {
 
     override func onReceive(message: Message) {
         if message.event == "connect" {
-            guard let data: MessageData = message.data(), let url = URL(string: data.url) else { return }
+            guard
+                let data: MessageData = message.data(),
+                let url = URL(string: data.url),
+                let viewController
+            else { return }
 
             let action = UIAction { [weak self] _ in
                 let activityViewController = UIActivityViewController(
@@ -20,18 +24,22 @@ final class ShareComponent: BridgeComponent {
                 self?.viewController?.present(activityViewController, animated: false)
             }
             
-            AppConfig.buttonItem = nil
-            AppConfig.shareItem = UIBarButtonItem(
+            let navigationItems = viewController.navigationItems
+            navigationItems.buttonItem = nil
+            navigationItems.shareItem = UIBarButtonItem(
                 title: "Share",
                 image: UIImage(systemName: "square.and.arrow.up"),
                 primaryAction: action
             )
 
-            viewController?.navigationItem.rightBarButtonItems = AppConfig.items
+            viewController.navigationItem.rightBarButtonItems = navigationItems.items
         } else if (message.event == "disconnect") {
-            AppConfig.shareItem = nil
+            guard let viewController else { return }
 
-            viewController?.navigationItem.rightBarButtonItems = AppConfig.items
+            let navigationItems = viewController.navigationItems
+            navigationItems.shareItem = nil
+
+            viewController.navigationItem.rightBarButtonItems = navigationItems.items
         }
     }
 
