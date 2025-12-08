@@ -3,7 +3,7 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, NavigatorDelegate {
     var window: UIWindow?
-    
+
     private var tabBarController: HotwireTabBarController?
 
     private var notificationRouter: NotificationRouter?
@@ -12,7 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, NavigatorDelegate {
         AppConfig.sceneDelegate = self
         viewDidLoad()
     }
-    
+
     func viewDidLoad() {
         tabBarController = HotwireTabBarController(
             navigatorDelegate: self
@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, NavigatorDelegate {
 
         tabBarController?.load(HotwireTab.all)
         window?.rootViewController = tabBarController!
-    
+
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = .white

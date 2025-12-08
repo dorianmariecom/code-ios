@@ -32,6 +32,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             SearchComponent.self
         ])
         
+        Hotwire.registerRouteDecisionHandlers([
+            AppNavigationRouteDecisionHandler(),
+            SystemNavigationRouteDecisionHandler()
+        ])
+        
         return true
     }
     func application(
