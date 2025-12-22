@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ShareComponent.self,
             RefreshComponent.self,
             FlashComponent.self,
-            ActionsComponent.self,
             SearchComponent.self
         ])
         

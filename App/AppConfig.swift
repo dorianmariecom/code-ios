@@ -15,7 +15,7 @@ struct AppConfig {
         return "production"
 #endif
     }()
-    
+
     static let baseDomain: String = {
         switch environment {
         case "test": return "http://localhost:3000"
@@ -25,10 +25,10 @@ struct AppConfig {
         default: return "https://codedorian.com"
         }
     }()
-    
+
     static let baseURL: URL = URL(string: baseDomain)!
     static let defaultURL: URL = baseURL
-    static let configurationsURL: URL = URL(string: "\(baseDomain)/configurations/ios_v2.json")!
+    static let configurationsURL: URL = URL(string: "\(baseDomain)/configurations/ios.json")!
     static let devicesURL: URL = URL(string: "\(baseDomain)/devices")!
     static var csrfToken: String?
     static var sceneDelegate: SceneDelegate?
