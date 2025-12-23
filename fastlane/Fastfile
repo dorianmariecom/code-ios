@@ -36,7 +36,6 @@ platform :ios do
       upload_to_testflight(
         api_key: asc_api_key,
         app_identifier: app_identifier,
-        changelog: changelog,
         skip_waiting_for_build_processing: true
       )
     end
@@ -104,7 +103,7 @@ platform :ios do
       app_identifier: "com.codedorian",
       changelog: options[:changelog],
       require_changelog: true,
-      publish_testflight: true,
+      publish_testflight: false,
       publish_app_store: true
     )
   end

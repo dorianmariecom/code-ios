@@ -9,9 +9,8 @@ if [ -z "$CHANGELOG" ]; then
   exit 1
 fi
 
-bin/fastlane ios test
-bin/fastlane ios localhost
-bin/fastlane ios development
-bin/fastlane ios staging
+CHANGELOG="$CHANGELOG" bin/fastlane ios test
+CHANGELOG="$CHANGELOG" bin/fastlane ios localhost
+CHANGELOG="$CHANGELOG" bin/fastlane ios development
+CHANGELOG="$CHANGELOG" bin/fastlane ios staging
 CHANGELOG="$CHANGELOG" bin/fastlane ios production
-wait
