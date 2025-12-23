@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -e
+
+CHANGELOG="$*"
+
+if [ -z "$CHANGELOG" ]; then
+  echo "Usage: bin/build \"changelog\"" >&2
+  exit 1
+fi
+
+bin/fastlane ios test
+bin/fastlane ios localhost
+bin/fastlane ios development
+bin/fastlane ios staging
+CHANGELOG="$CHANGELOG" bin/fastlane ios production
+wait

@@ -230,7 +230,7 @@
 				CODE_SIGN_ENTITLEMENTS = code.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 208;
+				CURRENT_PROJECT_VERSION = 209;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Info.plist;
@@ -244,7 +244,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.8;
+				MARKETING_VERSION = 2.9;
 				OTHER_SWIFT_FLAGS = "";
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-DCODE_ENV_TEST";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codedorian.test;
@@ -267,7 +267,7 @@
 				CODE_SIGN_ENTITLEMENTS = code.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 208;
+				CURRENT_PROJECT_VERSION = 209;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = JBK5Q3RCTT;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -282,7 +282,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.8;
+				MARKETING_VERSION = 2.9;
 				OTHER_SWIFT_FLAGS = "";
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-DCODE_ENV_LOCALHOST";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codedorian.localhost;
@@ -305,7 +305,7 @@
 				CODE_SIGN_ENTITLEMENTS = code.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 208;
+				CURRENT_PROJECT_VERSION = 209;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "We need access to play notification sounds.";
@@ -318,7 +318,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.8;
+				MARKETING_VERSION = 2.9;
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-DCODE_ENV_STAGING";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codedorian.staging;
 				PRODUCT_NAME = staging;
@@ -535,7 +535,7 @@
 				CODE_SIGN_ENTITLEMENTS = code.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 208;
+				CURRENT_PROJECT_VERSION = 209;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Info.plist;
@@ -549,7 +549,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.8;
+				MARKETING_VERSION = 2.9;
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-DCODE_ENV_DEVELOPMENT";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codedorian.development;
 				PRODUCT_NAME = development;
@@ -632,7 +632,7 @@
 				CODE_SIGN_ENTITLEMENTS = code.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 208;
+				CURRENT_PROJECT_VERSION = 209;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "We need access to play notification sounds.";
@@ -645,7 +645,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.8;
+				MARKETING_VERSION = 2.9;
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-DCODE_ENV_PRODUCTION";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codedorian;
 				PRODUCT_NAME = codedorian;

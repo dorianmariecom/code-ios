@@ -4,9 +4,11 @@ source "https://rubygems.org"
 
 ruby "3.4.5"
 
+gem "abbrev"
 gem "bundler-audit"
 gem "dorian"
 gem "fastlane"
+gem "nkf"
 gem "rails"
 gem "rspec"
 gem "rubocop-capybara"

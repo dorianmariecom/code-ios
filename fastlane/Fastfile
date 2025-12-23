@@ -16,6 +16,12 @@ platform :ios do
     scheme = options.fetch(:scheme)
     configuration = options.fetch(:configuration)
     app_identifier = options.fetch(:app_identifier)
+    changelog = options[:changelog] || ENV["CHANGELOG"]
+    require_changelog = options[:require_changelog]
+
+    if require_changelog && changelog.to_s.strip.empty?
+      UI.user_error!("changelog is required")
+    end
 
     build_app(
       project: "code.xcodeproj",
@@ -26,55 +32,80 @@ platform :ios do
       export_method: "app-store"
     )
 
-    upload_to_testflight(
-      api_key: asc_api_key,
-      app_identifier: app_identifier,
-      skip_waiting_for_build_processing: true
-    )
+    if options[:publish_testflight]
+      upload_to_testflight(
+        api_key: asc_api_key,
+        app_identifier: app_identifier,
+        changelog: changelog,
+        skip_waiting_for_build_processing: true
+      )
+    end
+
+    if options[:publish_app_store]
+      upload_to_app_store(
+        api_key: asc_api_key,
+        app_identifier: app_identifier,
+        release_notes: changelog,
+        skip_metadata: true,
+        skip_screenshots: true
+      )
+    end
   end
 
   desc "Build and upload TestFlight for test"
-  lane :test do
+  lane :test do |options|
     build_and_upload(
       scheme: "test",
       configuration: "test",
-      app_identifier: "com.codedorian.test"
+      app_identifier: "com.codedorian.test",
+      changelog: options[:changelog],
+      publish_testflight: true
     )
   end
 
   desc "Build and upload TestFlight for localhost"
-  lane :localhost do
+  lane :localhost do |options|
     build_and_upload(
       scheme: "localhost",
       configuration: "localhost",
-      app_identifier: "com.codedorian.localhost"
+      app_identifier: "com.codedorian.localhost",
+      changelog: options[:changelog],
+      publish_testflight: true
     )
   end
 
   desc "Build and upload TestFlight for development"
-  lane :development do
+  lane :development do |options|
     build_and_upload(
       scheme: "development",
       configuration: "development",
-      app_identifier: "com.codedorian.development"
+      app_identifier: "com.codedorian.development",
+      changelog: options[:changelog],
+      publish_testflight: true
     )
   end
 
   desc "Build and upload TestFlight for staging"
-  lane :staging do
+  lane :staging do |options|
     build_and_upload(
       scheme: "staging",
       configuration: "staging",
-      app_identifier: "com.codedorian.staging"
+      app_identifier: "com.codedorian.staging",
+      changelog: options[:changelog],
+      publish_testflight: true
     )
   end
 
   desc "Build and upload TestFlight for production"
-  lane :production do
+  lane :production do |options|
     build_and_upload(
       scheme: "production",
       configuration: "production",
-      app_identifier: "com.codedorian"
+      app_identifier: "com.codedorian",
+      changelog: options[:changelog],
+      require_changelog: true,
+      publish_testflight: true,
+      publish_app_store: true
     )
   end
 end
