@@ -2,15 +2,15 @@
 
 set -e
 
-CHANGELOG="$*"
+RELEASE_NOTES="$*"
 
-if [ -z "$CHANGELOG" ]; then
+if [ -z "$RELEASE_NOTES" ]; then
   echo "Usage: bin/build \"changelog\"" >&2
   exit 1
 fi
 
-CHANGELOG="$CHANGELOG" bin/fastlane ios test
-CHANGELOG="$CHANGELOG" bin/fastlane ios localhost
-CHANGELOG="$CHANGELOG" bin/fastlane ios development
-CHANGELOG="$CHANGELOG" bin/fastlane ios staging
-CHANGELOG="$CHANGELOG" bin/fastlane ios production
+RELEASE_NOTES="$CHANGELOG" bin/fastlane ios test
+RELEASE_NOTES="$CHANGELOG" bin/fastlane ios localhost
+RELEASE_NOTES="$CHANGELOG" bin/fastlane ios development
+RELEASE_NOTES="$CHANGELOG" bin/fastlane ios staging
+RELEASE_NOTES="$CHANGELOG" bin/fastlane ios production
