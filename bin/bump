@@ -1,0 +1,70 @@
+#!/usr/bin/env ruby
+
+# Bump MARKETING_VERSION and CURRENT_PROJECT_VERSION in the Xcode project.
+
+path = "code.xcodeproj/project.pbxproj"
+kind = ARGV[0]
+
+unless %w[major minor patch].include?(kind)
+  warn "Usage: #{File.basename($PROGRAM_NAME)} [major|minor|patch]"
+  exit 1
+end
+
+unless File.exist?(path)
+  warn "Missing #{path}"
+  exit 1
+end
+
+content = File.read(path)
+versions = content.scan(/MARKETING_VERSION = ([0-9]+(?:\.[0-9]+){0,2});/).flatten.uniq
+build_numbers = content.scan(/CURRENT_PROJECT_VERSION = ([0-9]+);/).flatten.uniq
+
+if versions.empty?
+  warn "No MARKETING_VERSION found in #{path}"
+  exit 1
+end
+
+if versions.size > 1
+  warn "Multiple MARKETING_VERSION values found: #{versions.join(", ")}" 
+  warn "Resolve inconsistencies before bumping."
+  exit 1
+end
+
+if build_numbers.empty?
+  warn "No CURRENT_PROJECT_VERSION found in #{path}"
+  exit 1
+end
+
+if build_numbers.size > 1
+  warn "Multiple CURRENT_PROJECT_VERSION values found: #{build_numbers.join(", ")}"
+  warn "Resolve inconsistencies before bumping."
+  exit 1
+end
+
+current = versions.first
+current_parts = current.split(".").map(&:to_i)
+orig_len = current_parts.length
+parts = current_parts + [0] * (3 - orig_len)
+
+case kind
+when "major"
+  parts[0] += 1
+  parts[1] = 0
+  parts[2] = 0
+when "minor"
+  parts[1] += 1
+  parts[2] = 0
+when "patch"
+  parts[2] += 1
+end
+
+new_len = (kind == "patch") ? 3 : orig_len
+new_version = parts[0, new_len].join(".")
+
+content.gsub!(/MARKETING_VERSION = [0-9]+(?:\.[0-9]+){0,2};/, "MARKETING_VERSION = #{new_version};")
+new_build_number = build_numbers.first.to_i + 1
+content.gsub!(/CURRENT_PROJECT_VERSION = [0-9]+;/, "CURRENT_PROJECT_VERSION = #{new_build_number};")
+
+File.write(path, content)
+puts "Bumped MARKETING_VERSION #{current} -> #{new_version} in #{path}"
+puts "Bumped CURRENT_PROJECT_VERSION #{build_numbers.first} -> #{new_build_number} in #{path}"
