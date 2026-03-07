@@ -16,7 +16,8 @@ unless File.exist?(path)
 end
 
 content = File.read(path)
-versions = content.scan(/MARKETING_VERSION = ([0-9]+(?:\.[0-9]+){0,2});/).flatten.uniq
+versions =
+  content.scan(/MARKETING_VERSION = ([0-9]+(?:\.[0-9]+){0,2});/).flatten.uniq
 build_numbers = content.scan(/CURRENT_PROJECT_VERSION = ([0-9]+);/).flatten.uniq
 
 if versions.empty?
@@ -25,7 +26,7 @@ if versions.empty?
 end
 
 if versions.size > 1
-  warn "Multiple MARKETING_VERSION values found: #{versions.join(", ")}" 
+  warn "Multiple MARKETING_VERSION values found: #{versions.join(", ")}"
   warn "Resolve inconsistencies before bumping."
   exit 1
 end
@@ -61,9 +62,15 @@ end
 new_len = (kind == "patch") ? 3 : orig_len
 new_version = parts[0, new_len].join(".")
 
-content.gsub!(/MARKETING_VERSION = [0-9]+(?:\.[0-9]+){0,2};/, "MARKETING_VERSION = #{new_version};")
+content.gsub!(
+  /MARKETING_VERSION = [0-9]+(?:\.[0-9]+){0,2};/,
+  "MARKETING_VERSION = #{new_version};"
+)
 new_build_number = build_numbers.first.to_i + 1
-content.gsub!(/CURRENT_PROJECT_VERSION = [0-9]+;/, "CURRENT_PROJECT_VERSION = #{new_build_number};")
+content.gsub!(
+  /CURRENT_PROJECT_VERSION = [0-9]+;/,
+  "CURRENT_PROJECT_VERSION = #{new_build_number};"
+)
 
 File.write(path, content)
 puts "Bumped MARKETING_VERSION #{current} -> #{new_version} in #{path}"

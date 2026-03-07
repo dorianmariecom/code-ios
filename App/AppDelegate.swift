@@ -45,4 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let token = deviceToken.map { String(format: "%02x", $0) }.joined()
         Task { await viewModel.register(token) }
     }
+
+    func applicationWillTerminate(_ application: UIApplication) {
+        AppConfig.sceneDelegate?.persistLastVisitedState()
+    }
 }

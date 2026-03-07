@@ -22,7 +22,7 @@ class TabBarComponent: BridgeComponent {
 
             HotwireTab.all = newTabs
 
-            AppConfig.sceneDelegate?.viewDidLoad()
+            AppConfig.sceneDelegate?.tabsDidUpdate()
         }
     }
     

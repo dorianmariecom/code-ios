@@ -1,11 +1,17 @@
 import HotwireNative
 import UserNotifications
 
+protocol DeepLinkHandling: AnyObject {
+    func queueDeepLink(_ url: URL)
+}
+
 class NotificationRouter: NSObject, UNUserNotificationCenterDelegate {
     private unowned let navigationHandler: NavigationHandler
+    private weak var deepLinkHandler: DeepLinkHandling?
 
-    init(navigationHandler: NavigationHandler) {
+    init(navigationHandler: NavigationHandler, deepLinkHandler: DeepLinkHandling?) {
         self.navigationHandler = navigationHandler
+        self.deepLinkHandler = deepLinkHandler
     }
 
     @MainActor
@@ -31,7 +37,11 @@ class NotificationRouter: NSObject, UNUserNotificationCenterDelegate {
             do { request.httpBody = try JSONSerialization.data(withJSONObject: ["code": userInfo]) } catch {}
             do { _ = try await URLSession.shared.data(for: request) } catch {}
         } else {
-            navigationHandler.route(url)
+            if let deepLinkHandler {
+                deepLinkHandler.queueDeepLink(url)
+            } else {
+                navigationHandler.route(url)
+            }
         }
     }
 

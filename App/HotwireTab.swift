@@ -4,7 +4,7 @@ import UIKit
 extension HotwireTab {
     static var all = [
         HotwireTab(
-            title: "loading...",
+            title: "loading…",
             image: UIImage(systemName: "circle.fill")!,
             url: AppConfig.defaultURL
         )

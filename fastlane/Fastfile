@@ -41,7 +41,8 @@ platform :ios do
     end
 
     if options[:publish_app_store]
-      release_notes = changelog.to_s.strip.empty? ? nil : { "en-US" => changelog }
+      release_notes =
+        changelog.to_s.strip.empty? ? nil : { "en-US" => changelog }
 
       upload_to_app_store(
         api_key: asc_api_key,
