@@ -14,7 +14,7 @@ final class NavigationItems {
 
 extension UIViewController {
     private struct AssociatedKeys {
-        static var navigationItems = "navigationItems"
+        static var navigationItems: UInt8 = 0
     }
 
     var navigationItems: NavigationItems {

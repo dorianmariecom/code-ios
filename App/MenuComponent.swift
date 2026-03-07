@@ -25,7 +25,6 @@ final class MenuComponent: BridgeComponent {
             }
 
             let navigationItems = viewController.navigationItems
-            navigationItems.buttonItem = nil
             navigationItems.menuItem = UIBarButtonItem(
                 title: "Menu",
                 image: UIImage(systemName: "ellipsis"),

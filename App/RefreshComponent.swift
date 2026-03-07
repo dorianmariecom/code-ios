@@ -17,8 +17,6 @@ final class RefreshComponent: BridgeComponent {
 
             guard let viewController else { return }
             let navigationItems = viewController.navigationItems
-
-            navigationItems.buttonItem = nil
             navigationItems.refreshItem = UIBarButtonItem(
                 title: "Refresh",
                 image: UIImage(systemName: "arrow.clockwise"),

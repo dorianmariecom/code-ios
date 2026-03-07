@@ -51,7 +51,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, NavigatorDelegate, UITa
         saveCurrentVisibleState()
     }
 
-    func sceneWillDisconnect(_ scene: UIScene) {
+    func sceneDidDisconnect(_ scene: UIScene) {
         saveCurrentVisibleState()
     }
 

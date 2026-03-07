@@ -25,7 +25,6 @@ final class ShareComponent: BridgeComponent {
             }
             
             let navigationItems = viewController.navigationItems
-            navigationItems.buttonItem = nil
             navigationItems.shareItem = UIBarButtonItem(
                 title: "Share",
                 image: UIImage(systemName: "square.and.arrow.up"),
