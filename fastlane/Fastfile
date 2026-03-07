@@ -38,12 +38,17 @@ platform :ios do
 
     if options[:publish_app_store]
       release_notes = { "en-US" => en_changelog, "fr-FR" => fr_changelog }
+      support_url = {
+        "en-US" => "https://codedorian.com",
+        "fr-FR" => "https://codedorian.com"
+      }
       copyright_notice = "#{Time.now.year} codedorian.com"
 
       upload_to_app_store(
         api_key: asc_api_key,
         app_identifier: app_identifier,
         release_notes: release_notes,
+        support_url: support_url,
         copyright: copyright_notice,
         precheck_include_in_app_purchases: false,
         skip_metadata: false,

@@ -20,9 +20,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, NavigatorDelegate, UITa
         static let lastSelectedTabURL = "lastSelectedTabURL"
         static let lastSelectedTabScrollOffsetY = "lastSelectedTabScrollOffsetY" // legacy raw contentOffset.y
         static let lastSelectedTabScrollPositionY = "lastSelectedTabScrollPositionY" // contentOffset.y + adjustedContentInset.top
-        static let scrollOffsetsByURL = "scrollOffsetsByURL"
-        static let scrollPositionsByURL = "scrollPositionsByURL"
-        static let tabURLsByIndex = "tabURLsByIndex"
     }
 
     private struct LastVisitedState {
@@ -105,7 +102,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, NavigatorDelegate, UITa
 
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         let tabIndex = tabBarController.selectedIndex
-        restoreStateForTabSelection(tabIndex: tabIndex)
+        routeToTabURL(tabIndex: tabIndex)
     }
 
     private func attemptRestoreOrDeepLink() {
@@ -183,7 +180,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, NavigatorDelegate, UITa
         guard let tabBarController else { return }
 
         let tabIndex = tabIndexOverride ?? tabBarController.selectedIndex
-        let fallback = fallbackURL ?? storedOrDefaultURL(for: tabIndex)
+        let fallback = fallbackURL ?? defaultURL(for: tabIndex)
 
         guard let webView = currentWebView() else {
             saveLastVisitedState(url: fallback, tabIndex: tabIndex, scrollOffsetY: 0)
@@ -228,8 +225,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, NavigatorDelegate, UITa
         userDefaults.set(url.absoluteString, forKey: StorageKeys.lastSelectedTabURL)
         userDefaults.set(Double(scrollOffsetY), forKey: StorageKeys.lastSelectedTabScrollOffsetY)
         userDefaults.set(Double(scrollOffsetY), forKey: StorageKeys.lastSelectedTabScrollPositionY)
-        saveScrollOffset(scrollOffsetY, for: url)
-        saveTabURL(url, for: tabIndex)
     }
 
     private func loadLastVisitedState() -> LastVisitedState? {
@@ -241,44 +236,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, NavigatorDelegate, UITa
         let tabIndex = userDefaults.integer(forKey: StorageKeys.lastSelectedTabIndex)
         let legacyScrollOffsetY = userDefaults.double(forKey: StorageKeys.lastSelectedTabScrollOffsetY)
         let scrollPositionY = userDefaults.double(forKey: StorageKeys.lastSelectedTabScrollPositionY)
-        let scrollOffsetY = loadScrollOffset(for: url) ?? (scrollPositionY > 0 ? scrollPositionY : legacyScrollOffsetY)
+        let scrollOffsetY = scrollPositionY > 0 ? scrollPositionY : legacyScrollOffsetY
         return LastVisitedState(url: url, tabIndex: tabIndex, scrollOffsetY: CGFloat(scrollOffsetY))
     }
 
-    private func saveScrollOffset(_ scrollOffsetY: CGFloat, for url: URL) {
-        let value = Double(max(scrollOffsetY, 0))
-
-        var scrollPositionsByURL = userDefaults.dictionary(forKey: StorageKeys.scrollPositionsByURL) as? [String: Double] ?? [:]
-        scrollPositionsByURL[url.absoluteString] = value
-        scrollPositionsByURL[urlStorageKey(for: url)] = value
-        userDefaults.set(scrollPositionsByURL, forKey: StorageKeys.scrollPositionsByURL)
-
-        // Keep legacy map populated for backward compatibility.
-        var scrollOffsetsByURL = userDefaults.dictionary(forKey: StorageKeys.scrollOffsetsByURL) as? [String: Double] ?? [:]
-        scrollOffsetsByURL[url.absoluteString] = value
-        scrollOffsetsByURL[urlStorageKey(for: url)] = value
-        userDefaults.set(scrollOffsetsByURL, forKey: StorageKeys.scrollOffsetsByURL)
-    }
-
-    private func loadScrollOffset(for url: URL) -> Double? {
-        let scrollPositionsByURL = userDefaults.dictionary(forKey: StorageKeys.scrollPositionsByURL) as? [String: Double]
-        if let value = scrollPositionsByURL?[url.absoluteString] ?? scrollPositionsByURL?[urlStorageKey(for: url)] {
-            return value
-        }
-
-        let scrollOffsetsByURL = userDefaults.dictionary(forKey: StorageKeys.scrollOffsetsByURL) as? [String: Double]
-        return scrollOffsetsByURL?[url.absoluteString] ?? scrollOffsetsByURL?[urlStorageKey(for: url)]
-    }
-
-    private func storedOrDefaultURL(for tabIndex: Int) -> URL {
-        if let url = loadTabURL(for: tabIndex) {
-            return url
-        }
-
-        if let state = loadLastVisitedState(), state.tabIndex == tabIndex {
-            return state.url
-        }
-
+    private func defaultURL(for tabIndex: Int) -> URL {
         if HotwireTab.all.indices.contains(tabIndex) {
             return HotwireTab.all[tabIndex].url
         }
@@ -286,17 +248,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, NavigatorDelegate, UITa
         return AppConfig.defaultURL
     }
 
-    private func restoreStateForTabSelection(tabIndex: Int) {
+    private func routeToTabURL(tabIndex: Int) {
         guard let tabBarController else { return }
-
-        let targetURL = storedOrDefaultURL(for: tabIndex)
-        let currentURL = currentWebView()?.url
-        if !isSamePage(currentURL, as: targetURL) {
-            tabBarController.route(targetURL)
-        }
-
-        let scrollOffsetY = loadScrollOffset(for: targetURL) ?? 0
-        scheduleScrollRestore(tabIndex: tabIndex, url: targetURL, scrollOffsetY: CGFloat(scrollOffsetY))
+        let targetURL = defaultURL(for: tabIndex)
+        tabBarController.route(targetURL)
     }
 
     private func markTabsReadyIfConfigured() {
@@ -316,18 +271,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, NavigatorDelegate, UITa
             return true
         }
         return urlStorageKey(for: lhs) == urlStorageKey(for: rhs)
-    }
-
-    private func saveTabURL(_ url: URL, for tabIndex: Int) {
-        var tabURLsByIndex = userDefaults.dictionary(forKey: StorageKeys.tabURLsByIndex) as? [String: String] ?? [:]
-        tabURLsByIndex[String(tabIndex)] = url.absoluteString
-        userDefaults.set(tabURLsByIndex, forKey: StorageKeys.tabURLsByIndex)
-    }
-
-    private func loadTabURL(for tabIndex: Int) -> URL? {
-        let tabURLsByIndex = userDefaults.dictionary(forKey: StorageKeys.tabURLsByIndex) as? [String: String]
-        guard let urlString = tabURLsByIndex?[String(tabIndex)] else { return nil }
-        return URL(string: urlString)
     }
 
     private func urlStorageKey(for url: URL) -> String {

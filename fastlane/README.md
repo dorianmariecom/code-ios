@@ -46,7 +46,6 @@ Build and upload TestFlight for development
 
 Build and upload TestFlight for staging
 
-
 ### ios production
 
 ```sh
