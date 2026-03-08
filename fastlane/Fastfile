@@ -51,6 +51,8 @@ platform :ios do
         support_url: support_url,
         copyright: copyright_notice,
         precheck_include_in_app_purchases: false,
+        force: true,
+        skip_binary_upload: true,
         skip_metadata: false,
         skip_screenshots: true
       )

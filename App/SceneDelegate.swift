@@ -12,6 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, NavigatorDelegate, UITa
     private var pendingDeepLinkURL: URL?
     private var hasRestoredState = false
     private var tabsReady = false
+    private var hasPreloadedTabs = false
     private let userDefaults = UserDefaults.standard
     private var pendingScrollRestore: PendingScrollRestore?
 
@@ -50,6 +51,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, NavigatorDelegate, UITa
 
     func sceneDidDisconnect(_ scene: UIScene) {
         saveCurrentVisibleState()
+    }
+
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard let url = URLContexts.first?.url else { return }
+        handleIncomingURL(url)
+    }
+
+    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+              let url = userActivity.webpageURL else { return }
+        handleIncomingURL(url)
     }
 
     func viewDidLoad() {
@@ -96,7 +108,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, NavigatorDelegate, UITa
     }
 
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        saveCurrentVisibleState(tabIndexOverride: tabBarController.selectedIndex)
+        let currentIndex = tabBarController.selectedIndex
+        saveCurrentVisibleState(tabIndexOverride: currentIndex)
+
+        if tabBarController.selectedViewController === viewController {
+            routeToTabURL(tabIndex: currentIndex)
+            return false
+        }
+
         return true
     }
 
@@ -107,22 +126,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, NavigatorDelegate, UITa
 
     private func attemptRestoreOrDeepLink() {
         guard tabsReady, let tabBarController else { return }
+        var preferredURLToKeep: URL?
 
         if let pendingDeepLinkURL {
             self.pendingDeepLinkURL = nil
             tabBarController.route(pendingDeepLinkURL)
             saveLastVisitedState(url: pendingDeepLinkURL, tabIndex: tabBarController.selectedIndex, scrollOffsetY: 0)
             hasRestoredState = true
-            return
+            preferredURLToKeep = pendingDeepLinkURL
+        } else if !hasRestoredState, let state = loadLastVisitedState() {
+            let maxIndex = max(0, (tabBarController.viewControllers?.count ?? 1) - 1)
+            let selectedIndex = min(max(state.tabIndex, 0), maxIndex)
+            tabBarController.selectedIndex = selectedIndex
+            tabBarController.route(state.url)
+            hasRestoredState = true
+            scheduleScrollRestore(tabIndex: selectedIndex, url: state.url, scrollOffsetY: state.scrollOffsetY)
+            preferredURLToKeep = state.url
         }
 
-        guard !hasRestoredState, let state = loadLastVisitedState() else { return }
-        let maxIndex = max(0, (tabBarController.viewControllers?.count ?? 1) - 1)
-        let selectedIndex = min(max(state.tabIndex, 0), maxIndex)
-        tabBarController.selectedIndex = selectedIndex
-        tabBarController.route(state.url)
-        hasRestoredState = true
-        scheduleScrollRestore(tabIndex: selectedIndex, url: state.url, scrollOffsetY: state.scrollOffsetY)
+        preloadTabsIfNeeded(preferredURLToKeep: preferredURLToKeep)
     }
 
     private func scheduleScrollRestore(tabIndex: Int, url: URL, scrollOffsetY: CGFloat) {
@@ -254,6 +276,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, NavigatorDelegate, UITa
         tabBarController.route(targetURL)
     }
 
+    private func preloadTabsIfNeeded(preferredURLToKeep: URL? = nil) {
+        guard tabsReady, !hasPreloadedTabs, let tabBarController else { return }
+
+        let tabIndexes = HotwireTab.all.indices
+        guard tabIndexes.count > 1 else {
+            hasPreloadedTabs = true
+            return
+        }
+
+        hasPreloadedTabs = true
+
+        let originalIndex = tabBarController.selectedIndex
+        let originalURL = currentWebView()?.url ?? defaultURL(for: originalIndex)
+        let finalURL = preferredURLToKeep ?? originalURL
+
+        for tabIndex in tabIndexes where tabIndex != originalIndex {
+            tabBarController.selectedIndex = tabIndex
+            tabBarController.route(defaultURL(for: tabIndex))
+        }
+
+        tabBarController.selectedIndex = originalIndex
+        tabBarController.route(finalURL)
+    }
+
     private func markTabsReadyIfConfigured() {
         guard !tabsReady else { return }
         if HotwireTab.all.count != 1 {
@@ -291,5 +337,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, NavigatorDelegate, UITa
         components.scheme = components.scheme?.lowercased()
         components.host = components.host?.lowercased()
         return components.string ?? url.absoluteString
+    }
+
+    private func handleIncomingURL(_ url: URL) {
+        let inAppURL = normalizedInAppURL(from: url)
+        queueDeepLink(inAppURL)
+    }
+
+    private func normalizedInAppURL(from url: URL) -> URL {
+        guard let sourceComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            return url
+        }
+
+        guard var targetComponents = URLComponents(url: AppConfig.baseURL, resolvingAgainstBaseURL: false) else {
+            return url
+        }
+
+        targetComponents.path = sourceComponents.path.isEmpty ? "/" : sourceComponents.path
+        targetComponents.queryItems = sourceComponents.queryItems
+        targetComponents.fragment = sourceComponents.fragment
+        return targetComponents.url ?? url
     }
 }
