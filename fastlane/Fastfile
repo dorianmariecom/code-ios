@@ -25,7 +25,8 @@ platform :ios do
       configuration: configuration,
       clean: true,
       output_directory: "builds/#{scheme}",
-      export_method: "app-store"
+      export_method: "app-store",
+      export_xcargs: "-allowProvisioningUpdates"
     )
 
     if options[:publish_testflight]

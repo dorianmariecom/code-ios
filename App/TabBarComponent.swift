@@ -8,21 +8,14 @@ class TabBarComponent: BridgeComponent {
         if message.event == "connect" {
             guard let data: MessageData = message.data() else { return }
 
-            let newTabs = data.tabs.map { tab in
-                HotwireTab(
-                    title: tab.title,
-                    image: UIImage(systemName: tab.image)!,
-                    url: AppConfig.baseURL.appending(path: tab.path)
-                )
-            }
+            let newTabs = data.tabs.map(\.definition)
+            let sourceURL = message.metadata.flatMap { URL(string: $0.url) }
 
-            if (newTabs.isEmpty || newTabs == HotwireTab.all) {
+            if newTabs.isEmpty || newTabs == AppTab.definitions {
                 return
             }
 
-            HotwireTab.all = newTabs
-
-            AppConfig.sceneDelegate?.tabsDidUpdate()
+            AppConfig.sceneDelegate?.updateTabs(newTabs, from: sourceURL)
         }
     }
     
@@ -34,5 +27,13 @@ class TabBarComponent: BridgeComponent {
         let title: String
         let image: String
         let path: String
+
+        var definition: AppTabDefinition {
+            AppTabDefinition(
+                title: title,
+                imageSystemName: image,
+                path: path
+            )
+        }
     }
 }
