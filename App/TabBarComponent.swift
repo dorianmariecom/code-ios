@@ -15,7 +15,8 @@ class TabBarComponent: BridgeComponent {
                 return
             }
 
-            AppConfig.sceneDelegate?.updateTabs(newTabs, from: sourceURL)
+            let defaultIndex = data.tabs.firstIndex(where: \.isDefault) ?? 0
+            AppConfig.sceneDelegate?.updateTabs(newTabs, defaultIndex: defaultIndex, from: sourceURL)
         }
     }
     
@@ -27,6 +28,9 @@ class TabBarComponent: BridgeComponent {
         let title: String
         let image: String
         let path: String
+        let `default`: Bool?
+
+        var isDefault: Bool { self.default == true }
 
         var definition: AppTabDefinition {
             AppTabDefinition(

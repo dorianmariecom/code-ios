@@ -108,7 +108,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, NavigatorDelegate, UITa
         saveCurrentVisibleState()
     }
 
-    func updateTabs(_ tabs: [AppTabDefinition], from sourceURL: URL?) {
+    func updateTabs(_ tabs: [AppTabDefinition], defaultIndex: Int = 0, from sourceURL: URL?) {
         guard !tabs.isEmpty else { return }
         guard shouldAcceptTabUpdate(from: sourceURL) else { return }
 
@@ -135,7 +135,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, NavigatorDelegate, UITa
 
         hasRestoredInitialState = true
         clearPendingScrollRestore()
-        tabBarController.selectTab(at: 0)
+        let clampedDefaultIndex = min(max(defaultIndex, 0), max(tabs.count - 1, 0))
+        tabBarController.selectTab(at: clampedDefaultIndex)
 
         if wasPlaceholderConfiguration {
             tabBarController.routeSelectedTabToRoot()
