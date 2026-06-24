@@ -16,8 +16,8 @@ platform :ios do
     scheme = options.fetch(:scheme)
     configuration = options.fetch(:configuration)
     app_identifier = options.fetch(:app_identifier)
-    fr_changelog = options[:fr_changelog] || ENV["FR_CHANGELOG"]
-    en_changelog = options[:en_changelog] || ENV["EN_CHANGELOG"]
+    fr_changelog = options[:fr_changelog] || ENV.fetch("FR_CHANGELOG", nil)
+    en_changelog = options[:en_changelog] || ENV.fetch("EN_CHANGELOG", nil)
 
     build_app(
       project: "code.xcodeproj",

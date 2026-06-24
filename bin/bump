@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 # Bump MARKETING_VERSION and CURRENT_PROJECT_VERSION in the Xcode project.
 
@@ -45,7 +46,7 @@ end
 current = versions.first
 current_parts = current.split(".").map(&:to_i)
 orig_len = current_parts.length
-parts = current_parts + [0] * (3 - orig_len)
+parts = current_parts + ([0] * (3 - orig_len))
 
 case kind
 when "major"
@@ -59,7 +60,7 @@ when "patch"
   parts[2] += 1
 end
 
-new_len = (kind == "patch") ? 3 : orig_len
+new_len = kind == "patch" ? 3 : orig_len
 new_version = parts[0, new_len].join(".")
 
 content.gsub!(
