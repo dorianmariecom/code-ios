@@ -117,7 +117,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, NavigatorDelegate, UITa
 
         guard let tabBarController else { return }
 
-        tabBarController.load(tabs)
+        tabBarController.load(tabs, selecting: defaultIndex)
 
         if routePendingDeepLinkIfNeeded() {
             return
@@ -135,8 +135,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, NavigatorDelegate, UITa
 
         hasRestoredInitialState = true
         clearPendingScrollRestore()
-        let clampedDefaultIndex = min(max(defaultIndex, 0), max(tabs.count - 1, 0))
-        tabBarController.selectTab(at: clampedDefaultIndex)
+        tabBarController.selectTab(at: defaultIndex)
 
         if wasPlaceholderConfiguration {
             tabBarController.routeSelectedTabToRoot()

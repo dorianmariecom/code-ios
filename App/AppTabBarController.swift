@@ -6,7 +6,7 @@ final class AppTabBarController: UITabBarController, NavigationHandler {
     private let navigatorDelegate: NavigatorDelegate?
     private var tabDefinitions = [AppTabDefinition]()
     private var navigators = [AppTabDefinition: Navigator]()
-    private var startedTabs = Set<AppTabDefinition>()
+    private var startedNavigatorIDs = Set<ObjectIdentifier>()
 
     init(navigatorDelegate: NavigatorDelegate? = nil) {
         self.navigatorDelegate = navigatorDelegate
@@ -18,19 +18,36 @@ final class AppTabBarController: UITabBarController, NavigationHandler {
         fatalError("Use init(navigatorDelegate:) instead.")
     }
 
-    func load(_ tabs: [AppTabDefinition]) {
+    func load(_ tabs: [AppTabDefinition], selecting preferredIndex: Int? = nil) {
+        let previousSelectedNavigator = activeNavigator
         let previousNavigators = navigators
 
         self.tabDefinitions = tabs
         navigators = [:]
 
+        for tab in tabs {
+            if let navigator = previousNavigators[tab] {
+                navigators[tab] = navigator
+            }
+        }
+
+        if let preferredIndex,
+           tabs.indices.contains(preferredIndex),
+           let previousSelectedNavigator,
+           !navigators.values.contains(where: { $0 === previousSelectedNavigator }),
+           navigators[tabs[preferredIndex]] == nil {
+            navigators[tabs[preferredIndex]] = previousSelectedNavigator
+        }
+
         viewControllers = tabs.map { tab in
-            let navigator = previousNavigators[tab] ?? makeNavigator(for: tab)
+            let navigator = navigators[tab] ?? makeNavigator(for: tab)
             navigators[tab] = navigator
+            configure(navigator, for: tab)
             return navigator.rootViewController
         }
 
-        let clampedIndex = min(max(selectedIndex, 0), max(tabs.count - 1, 0))
+        let requestedIndex = preferredIndex ?? selectedIndex
+        let clampedIndex = min(max(requestedIndex, 0), max(tabs.count - 1, 0))
         selectedIndex = clampedIndex
     }
 
@@ -82,8 +99,10 @@ final class AppTabBarController: UITabBarController, NavigationHandler {
     }
 
     private func startIfNeeded(tab: AppTabDefinition) {
-        guard !startedTabs.contains(tab), let navigator = navigators[tab] else { return }
-        startedTabs.insert(tab)
+        guard let navigator = navigators[tab] else { return }
+        let navigatorID = ObjectIdentifier(navigator)
+        guard !startedNavigatorIDs.contains(navigatorID) else { return }
+        startedNavigatorIDs.insert(navigatorID)
         navigator.start()
     }
 
@@ -96,12 +115,16 @@ final class AppTabBarController: UITabBarController, NavigationHandler {
             delegate: navigatorDelegate
         )
 
+        configure(navigator, for: tab)
+
+        return navigator
+    }
+
+    private func configure(_ navigator: Navigator, for tab: AppTabDefinition) {
         navigator.rootViewController.tabBarItem = UITabBarItem(
             title: tab.title,
             image: UIImage(systemName: tab.imageSystemName),
             selectedImage: nil
         )
-
-        return navigator
     }
 }
